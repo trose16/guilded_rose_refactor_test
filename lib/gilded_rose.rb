@@ -14,7 +14,7 @@ class GildedRose
       if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
         if item.quality > 0
           if item.name != "Sulfuras, Hand of Ragnaros"
-            item.quality = item.quality - 1 #Items that aren't backstage passes such as brie degrade in quality 
+            item.quality = item.quality - 1 #Items that aren't backstage passes such as brie degrade in quality
           end
         end
         # ^^ if item is not named 'aged brie' or 'Backstage passes to a TAFKAL80ETC concert' & if the item quality is greater than 0 & if the item name is not Sulfuras, Hand of Ragnaros, than the item's quality score should subtract 1

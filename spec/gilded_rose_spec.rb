@@ -4,8 +4,9 @@ describe GildedRose do
 
   describe "#update_quality" do
 
+    let( :items ) { double [described_class.new("banana", 11, 30)] }
+
     it "does not change the name" do
-      items = [Item.new("banana", 0, 0)]
       GildedRose.new(items).update_quality()
       expect(items[0].name).to eq "banana"
     end
@@ -39,7 +40,7 @@ describe GildedRose do
       ###
     end
 
-    scenerio "Backstage passes increase in quality with age" do
+    context "Backstage passes increase in quality with age" do
 
       it "increases quality value by 2 when sell by date < 10" do
 
