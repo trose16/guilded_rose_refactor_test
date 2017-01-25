@@ -37,14 +37,14 @@ describe GildedRose do
       it "has a negative quality value " do
         milk = [Item.new("milk", 7, -5)]
         GildedRose.new(milk).update_quality
-        expect { milk[0].quality }.to raise_error "Quality value is a negative number!"
+        expect { milk[0].quality }.to raise_error "Quality value can not be a negative number!"
       end
 
 
       it "has quality value to be greater than 50" do
         milk = [Item.new("milk", 7, 55)]
         GildedRose.new(milk).update_quality
-        expect { milk[0].quality }.to raise_error "Quality value is above 50!"
+        expect { milk[0].quality }.to raise_error "Quality value must not exceed 50!"
       end
 
     end

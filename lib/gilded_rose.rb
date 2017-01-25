@@ -42,11 +42,15 @@ class GildedRose
   end
 
   def sulfuras_quality(item)
-    puts "Sulfuras"
+    puts "Sulfuras doesn't decrease in quality or sell by date"
   end
 
   def aged_brie_quality(item)
     puts "Aged Brie"
+    if item.quality < MAX_QUALITY
+      item.quality = item.quality + QUALITY_INCREMENT
+      decrease_sell_by_date(item)
+    end
   end
 
   def backstage_pass_quality(item)
@@ -58,28 +62,27 @@ class GildedRose
         item.quality = item.quality + QUALITY_INCREMENT * 2
       elsif item.quality < MAX_QUALITY && item.sell_in < 5
         item.quality = item.quality + QUALITY_INCREMENT * 3
+      elsif item.quality < MAX_QUALITY && item.sell_in < 0
+        item.quality = MIN_QUALITY
       end
   end
 
+  def negative_quality(item)
+    if item.quality < MIN_QUALITY
+      raise "Quality value can not be a negative number!"
+    end
+  end
 
-  #
-  # def past_sell_by_date
-  #   if item.sell_in < 0
-  #     if item.name != "Aged Brie"
-  #       if item.name != "Backstage passes to a TAFKAL80ETC concert"
-  #         if item.quality > 0
-  #           if item.name != "Sulfuras, Hand of Ragnaros"
-  #             item.quality = item.quality - 1
-  #           end
-  #         end
-  #       else
-  #         item.quality = item.quality - item.quality
-  #       end
-  #     else
-  #       if item.quality < 50
-  #         item.quality = item.quality + 1
-  #       end
-  # end
+  def quality_score_limit(item)
+    if item.quality > MAX_QUALITY
+      raise "Quality value must not exceed 50!"
+    end
+  end
+
+
+  def past_sell_by_date
+
+  end
 
 
   def update_quality()
@@ -122,7 +125,7 @@ class GildedRose
             item.quality = item.quality - item.quality
           end
         else
-          if item.quality < 50
+          if item.quality < 50 #aged brie
             item.quality = item.quality + 1
           end
         end
