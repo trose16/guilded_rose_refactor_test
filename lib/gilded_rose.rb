@@ -11,15 +11,10 @@ class GildedRose
 
   def new_update_item
     items.each do |item|
-      if item.name == "Aged Brie"
-        aged_brie
-      elsif item.name == "Backstage passes to a TAFKAL80ETC concert"
-        backstage_pass_quality
-      elsif item.name == "Sulfuras, Hand of Ragnaros"
-        sulfuras_quality
-      else
-        regular_item_quality
-      end
+      regular_item_quality if item.name != "Aged Brie" || "Backstage passes to a TAFKAL80ETC concert" || "Sulfuras, Hand of Ragnaros" 
+      aged_brie_quality if item.name == "Aged Brie"
+      backstage_pass_quality if item.name == "Backstage passes to a TAFKAL80ETC concert"
+      sulfuras_quality if item.name == "Sulfuras, Hand of Ragnaros"
     end
   end
 
@@ -28,7 +23,7 @@ class GildedRose
   end
 
   def aged_brie_quality
-    puts "sulfuras"
+    puts "brie"
   end
 
 
