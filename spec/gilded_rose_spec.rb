@@ -17,7 +17,9 @@ describe GildedRose do
     end
 
     it "lowers the sell by date for each item at end of day " do
-      ###
+      milk = [Item.new("milk", 11, 35)]
+      GildedRose.new(milk).update_quality
+      expect(milk[0].sell_in).to eq 10
     end
 
     it "decreases item's quality twice as fast after sell by date" do
