@@ -59,11 +59,16 @@ describe GildedRose do
       end
 
       it "doesn't decrease sell by or quality values for Sulfuras" do
-        ###
+        sulfuras = [Item.new("Sulfuras, Hand of Ragnaros", 11, 35)]
+        GildedRose.new(sulfuras).update_quality
+        expect(sulfuras[0].quality).to eq 35
+        expect(sulfuras[0].sell_in).to eq 11
       end
 
       it "increases backstage pass quality value by 2 when sell by date < 10" do
-
+        backstage_pass = [Item.new("Backstage passes to a TAFKAL80ETC concert", 9, 35)]
+        GildedRose.new(backstage_pass).update_quality
+        expect(backstage_pass[0].quality).to eq 37
       end
 
       it "increases backstage pass quality value by 3 when sell by date < 5" do
