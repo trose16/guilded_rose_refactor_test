@@ -1,7 +1,11 @@
 require_relative 'item.rb'
 
-
 class GildedRose
+
+  MIN_QUALITY = 0
+  MAX_QUALITY = 50
+  QUALITY_INCREMENT = 1
+  SELL_BY_DATE_DECREASE = 1
 
   attr_accessor :items
 
@@ -25,15 +29,15 @@ class GildedRose
 
   def regular_item_quality(item)
     puts "Regular Item"
-    if item.quality > 0
-      item.quality = item.quality - 1
+    if item.quality > MINIMUM_QUALITY
+      item.quality = item.quality - QUALITY_INCREMENT
       decrease_sell_by_date(item)
     end
   end
 
   def decrease_sell_by_date(item)
     if item.name != "Sulfuras, Hand of Ragnaros"
-      item.sell_in = item.sell_in - 1
+      item.sell_in = item.sell_in - SELL_BY_DATE_DECREASE
     end
   end
 
@@ -48,12 +52,12 @@ class GildedRose
   def backstage_pass_quality(item)
     puts "Backstage Pass Item"
       decrease_sell_by_date(item)
-      if item.quality < 50 && item.sell_in >= 10
-        item.quality = item.quality + 1
-      elsif item.quality < 50 && item.sell_in <= 10
-        item.quality = item.quality + 2
-      elsif item.quality < 50 && item.sell_in < 5
-        item.quality = item.quality + 3
+      if item.quality < MAX_QUALITY && item.sell_in >= 10
+        item.quality = item.quality + QUALITY_INCREMENT
+      elsif item.quality < MAX_QUALITY && item.sell_in <= 10
+        item.quality = item.quality + QUALITY_INCREMENT * 2
+      elsif item.quality < MAX_QUALITY && item.sell_in < 5
+        item.quality = item.quality + QUALITY_INCREMENT * 3
       end
   end
 
