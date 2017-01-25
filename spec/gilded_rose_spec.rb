@@ -72,11 +72,15 @@ describe GildedRose do
       end
 
       it "increases backstage pass quality value by 3 when sell by date < 5" do
-
+        backstage_pass = [Item.new("Backstage passes to a TAFKAL80ETC concert", 4, 35)]
+        GildedRose.new(backstage_pass).update_quality
+        expect(backstage_pass[0].quality).to eq 38
       end
 
-      it "sets quality value to 0 when sell by date is == 0" do
-
+      it "sets backstage pass quality value to 0 when sell by date is == 0" do
+        backstage_pass = [Item.new("Backstage passes to a TAFKAL80ETC concert", 0, 35)]
+        GildedRose.new(backstage_pass).update_quality
+        expect(backstage_pass[0].quality).to eq 0
       end
 
     end
