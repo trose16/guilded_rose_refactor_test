@@ -53,7 +53,9 @@ describe GildedRose do
     context "special items don't degrade with age" do
 
       it "increases quality of Aged Brie as it ages" do
-        ###
+        aged_brie = [Item.new("Aged Brie", 11, 35)]
+        GildedRose.new(aged_brie).update_quality
+        expect(aged_brie[0].quality).to eq 36
       end
 
       it "doesn't decrease sell by or quality values for Sulfuras" do
