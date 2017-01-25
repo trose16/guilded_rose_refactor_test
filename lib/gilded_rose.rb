@@ -3,69 +3,61 @@ require_relative 'item.rb'
 
 class GildedRose
 
-  attr_reader :items
+  attr_accessor :items
 
   def initialize(items)
     @items = items
   end
 
-  def new_update_item
+  def new_update_quality
     items.each do |item|
-      regular_item_quality if item.name != "Aged Brie" || "Backstage passes to a TAFKAL80ETC concert" || "Sulfuras, Hand of Ragnaros" 
-      aged_brie_quality if item.name == "Aged Brie"
-      backstage_pass_quality if item.name == "Backstage passes to a TAFKAL80ETC concert"
-      sulfuras_quality if item.name == "Sulfuras, Hand of Ragnaros"
+      if item.name == "Aged Brie"
+        aged_brie_quality(item)
+      elsif item.name == "Backstage passes to a TAFKAL80ETC concert"
+        backstage_pass_quality(item)
+      elsif item.name == "Sulfuras, Hand of Ragnaros"
+        sulfuras_quality(item)
+      else
+        regular_item_quality(item)
+      end
     end
   end
 
-  def sulfuras_quality
-    puts "sulfuras"
+  def regular_item_quality(item)
+    puts "Regular Item"
+    if item.quality > 0
+      item.quality = item.quality - 1
+      decrease_sell_by_date(item)
+    end
   end
 
-  def aged_brie_quality
-    puts "brie"
+  def decrease_sell_by_date(item)
+    if item.name != "Sulfuras, Hand of Ragnaros"
+      item.sell_in = item.sell_in - 1
+    end
+  end
+
+  def sulfuras_quality(item)
+    puts "Sulfuras"
+  end
+
+  def aged_brie_quality(item)
+    puts "Aged Brie"
+  end
+
+  def backstage_pass_quality(item)
+    puts "Backstage Pass Item"
+      decrease_sell_by_date(item)
+      if item.quality < 50 && item.sell_in >= 10
+        item.quality = item.quality + 1
+      elsif item.quality < 50 && item.sell_in <= 10
+        item.quality = item.quality + 2
+      elsif item.quality < 50 && item.sell_in < 5
+        item.quality = item.quality + 3
+      end
   end
 
 
-  def regular_item_quality
-    puts "regular item"
-    # items.each do |item|
-    #   if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
-    #     if item.quality > 0
-    #       if item.name != "Sulfuras, Hand of Ragnaros"
-    #         item.quality = item.quality - 1
-    #       end
-    #     end
-    #   end
-    # end
-  end
-
-  def backstage_pass_quality #needs to interact with the method that reduces sell_in as well...
-    puts "backstage pass"
-  #   items.each do |item|
-  #   if item.quality < 50
-  #     item.quality = item.quality + 1
-  #     if item.name == "Backstage passes to a TAFKAL80ETC concert"
-  #       if item.sell_in < 11
-  #         if item.quality < 50
-  #           item.quality = item.quality + 1
-  #         end
-  #       end
-  #       if item.sell_in < 6
-  #         if item.quality < 50
-  #           item.quality = item.quality + 1
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
-  end
-
-  # def decrease_sell_by_date
-  #   if item.name != "Sulfuras, Hand of Ragnaros"
-  #     item.sell_in = item.sell_in - 1
-  #   end
-  # end
   #
   # def past_sell_by_date
   #   if item.sell_in < 0
@@ -95,8 +87,6 @@ class GildedRose
           end
         end
       else
-
-
         if item.quality < 50
           item.quality = item.quality + 1
           if item.name == "Backstage passes to a TAFKAL80ETC concert"
