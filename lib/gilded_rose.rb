@@ -9,8 +9,6 @@ class GildedRose
 
   def update_quality()
     @items.each do |item|
-      #^^items come in as an array this is the iteration
-
       if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
         if item.quality > 0
           if item.name != "Sulfuras, Hand of Ragnaros"

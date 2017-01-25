@@ -4,15 +4,16 @@ describe GildedRose do
 
   describe "#update_quality" do
 
-    let( :items ) { double [described_class.new("banana", 11, 30)] }
-
     it "does not change the name" do
-      GildedRose.new(items).update_quality()
+      items = [Item.new("banana", 0, 0)]
+      GildedRose.new(items).update_quality
       expect(items[0].name).to eq "banana"
     end
 
     it "lowers the quality value for each item at end of day" do
-      ###
+        milk = [Item.new("milk", 11, 35)]
+        GildedRose.new(milk).update_quality
+        expect(milk[0].quality).to eq 34
     end
 
     it "lowers the sell by date for each item at end of day " do
@@ -36,17 +37,18 @@ describe GildedRose do
       ###
     end
 
-    it "increases quality of Aged Brie as it ages" do
-      ###
-    end
 
-    context "Backstage passes increase in quality with age" do
+    context "special items increase in quality with age" do
 
-      it "increases quality value by 2 when sell by date < 10" do
+      it "increases quality of Aged Brie as it ages" do
+        ###
+      end
+
+      it "increases backstage pass quality value by 2 when sell by date < 10" do
 
       end
 
-      it "increases quality value by 3 when sell by date < 5" do
+      it "increases backstage pass quality value by 3 when sell by date < 5" do
 
       end
 
