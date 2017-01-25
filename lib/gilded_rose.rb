@@ -15,6 +15,7 @@ class GildedRose
 
   def new_update_quality
     items.each do |item|
+      quality_score_control(item)
       if item.name == "Aged Brie"
         aged_brie_quality(item)
       elsif item.name == "Backstage passes to a TAFKAL80ETC concert"
@@ -27,9 +28,25 @@ class GildedRose
     end
   end
 
+  def quality_score_control(item)
+    if item.quality > MAX_QUALITY
+      quality_score_limit(item)
+    elsif item.quality < MIN_QUALITY
+      quality_score_minimum(item)
+    end
+  end
+
+  def quality_score_minimum(item)
+    raise "Quality value can not be a negative number!"
+  end
+
+  def quality_score_limit(item)
+    raise "Quality value must not exceed 50!"
+  end
+
   def regular_item_quality(item)
     puts "Regular Item"
-    if item.quality > MINIMUM_QUALITY
+    if item.quality > MIN_QUALITY
       item.quality = item.quality - QUALITY_INCREMENT
       decrease_sell_by_date(item)
     end
@@ -65,23 +82,6 @@ class GildedRose
       elsif item.quality < MAX_QUALITY && item.sell_in < 0
         item.quality = MIN_QUALITY
       end
-  end
-
-  def negative_quality(item)
-    if item.quality < MIN_QUALITY
-      raise "Quality value can not be a negative number!"
-    end
-  end
-
-  def quality_score_limit(item)
-    if item.quality > MAX_QUALITY
-      raise "Quality value must not exceed 50!"
-    end
-  end
-
-
-  def past_sell_by_date
-
   end
 
 
