@@ -4,39 +4,43 @@ describe GildedRose do
 
   describe "#update_quality" do
 
-    it "does not change the name" do
-      items = [Item.new("banana", 0, 0)]
-      GildedRose.new(items).update_quality
-      expect(items[0].name).to eq "banana"
-    end
+    context "regular items that decrease in quality with age" do
 
-    it "lowers the quality value for each item at end of day" do
+      it "does not change the name" do
+        items = [Item.new("banana", 0, 0)]
+        GildedRose.new(items).update_quality
+        expect(items[0].name).to eq "banana"
+      end
+
+      it "lowers the quality value for each item at end of day" do
+          milk = [Item.new("milk", 11, 35)]
+          GildedRose.new(milk).update_quality
+          expect(milk[0].quality).to eq 34
+      end
+
+      it "lowers the sell by date for each item at end of day " do
         milk = [Item.new("milk", 11, 35)]
         GildedRose.new(milk).update_quality
-        expect(milk[0].quality).to eq 34
-    end
+        expect(milk[0].sell_in).to eq 10
+      end
 
-    it "lowers the sell by date for each item at end of day " do
-      milk = [Item.new("milk", 11, 35)]
-      GildedRose.new(milk).update_quality
-      expect(milk[0].sell_in).to eq 10
-    end
+      it "decreases item's quality twice as fast after sell by date" do
+        ###
+      end
 
-    it "decreases item's quality twice as fast after sell by date" do
-      ###
-    end
-
-    it "doesn't allow a negative quality value " do
-      ###
-    end
+      it "doesn't allow a negative quality value " do
+        ###
+      end
 
 
-    it "doesn't allow a quality value to be greater than 50" do
-      ###
-    end
+      it "doesn't allow a quality value to be greater than 50" do
+        ###
+      end
 
-    it "doesn't decrease sell by or quality values for Sulfuras" do
-      ###
+      it "doesn't decrease sell by or quality values for Sulfuras" do
+        ###
+      end
+      
     end
 
 
